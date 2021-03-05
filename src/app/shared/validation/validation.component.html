@@ -1,0 +1,10 @@
+<div class="form-group" >
+  <label class="control-label required">{{label}}</label>
+  <div [ngClass]="{'has-error':isError}" >
+   <ng-content></ng-content>
+   <ng-container *ngIf='isError'>
+     <span style="color: red;" *ngFor="let message of errorMessages"> {{message}}</span>
+   </ng-container>
+  </div>
+ </div>
+
