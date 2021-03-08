@@ -17,6 +17,8 @@ import { NewLeadFormComponent } from './leads/new-lead-form/new-lead-form.compon
 import { NewCustomerFormComponent } from './customers/new-customer-form/new-customer-form.component';
 import { ValidationComponent } from './shared/validation/validation.component';
 import { InputRefDirective } from './shared/input-ref.directive';
+import { CustomerEditComponent } from './customers/customer-edit/customer-edit.component';
+// import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { InputRefDirective } from './shared/input-ref.directive';
     NewCustomerFormComponent,
     ValidationComponent,
     InputRefDirective,
+    CustomerEditComponent,
   ],
   imports: [
     BrowserModule,

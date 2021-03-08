@@ -6,6 +6,9 @@ import { Subject } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Country } from 'src/app/models/country';
 import { Countries } from 'src/app/models/countries';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CustomerService } from 'src/app/core/services/customer.service';
+
 
 @Component({
   selector: 'app-new-lead-form',
@@ -19,18 +22,24 @@ export class NewLeadFormComponent implements OnInit, OnDestroy {
   countries: Country [] = new Countries().countries;
   submitted: boolean = false;
   private destroyed$ = new Subject<boolean>();
+  customername: any;
+  dynamicId;
+
 
   constructor(private apiService: ApiService,
-              private fb: FormBuilder) {}
+              private fb: FormBuilder,
+              private router: Router,
+              private route: ActivatedRoute,
+              private customerService: CustomerService) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.apiService.customersSub
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(response => {
-        this.customers = response;
-    })
   }
+
+  save(val) {
+    this.customerService.setData(val);
+  }
+
 
   private createForm() {
     this.leadForm = this.fb.group({
@@ -65,6 +74,9 @@ export class NewLeadFormComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.submitted = true;
     if (this.leadForm.invalid) return;
+    this.save(this.leadForm.value);
+    console.log(this.leadForm.value);
+    this.router.navigate(['/customer-detail']);
     this.leadForm.reset()
     this.submitted = false;
   }
